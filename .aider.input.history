@@ -1,0 +1,113 @@
+
+# 2026-10-26 10:02:37.739476
++N
+
+# 2026-10-26 10:04:35.283736
++/read-only
+
+# 2026-10-26 10:05:09.798815
++The existing ELM code was generated using OpenCode for Phase 1.
++We must improve that same implementation for Phase 2.
++Do not regenerate or modify any files yet.
++First inspect the current project structure and identify the ELM specifications, frontend, backend, existing tests, and Fusion Base integration.
++Report confirmed bugs and missing requirements with file paths and evidence.
++Do not invent files or test results.
+
+# 2026-10-26 10:13:46.859729
++We are completing Fusion ERP Lab Assignment 6B, Phase 2. The existing ELM code was generated using OpenCode in Phase 1. Improve that same implementation; do not regenerate it.
++
++You are running inside the project root. Start working immediately using your available terminal and file-reading tools. Do not ask me to manually provide the project structure.
++
++FIRST: INSPECT ONLY. Do not edit files yet.
++
++1. Read README.md and inspect pyproject.toml, ELM_specs, modules/leave, client/src, existing tests, and Fusion Base registration/integration.
++2. Read all relevant ELM specifications, including the problem statement, functional requirements, use cases, business rules, workflow, and traceability matrix.
++3. Run `git status` only to check whether Git metadata exists; do not initialize Git or modify repository metadata.
++4. Identify actual bugs and missing requirements by comparing the implementation with the specifications. Check business rules, authorization, approval workflows, state transitions, API contracts, frontend/backend mismatches, data consistency, security, and Fusion integration.
++5. Run relevant existing tests and inspect the frontend build configuration. Do not invent test results.
++6. Give me a prioritized report with exact file paths, evidence, severity, and proposed regression tests.
++
++If you cannot read files because they are not in context, use your terminal tools to inspect them and then tell me the exact `/add` commands for the required files. Do not claim to have inspected files you have not read.
++
++After presenting the findings, wait for my approval before editing anything. Preserve the existing architecture, do not delete or weaken tests, and never replace the project with a new implementation.
+
+# 2026-10-26 10:16:44.295842
++/add README.md pyproject.toml
+
+# 2026-10-26 10:16:52.902076
++/add modules/leave/api/views.py modules/leave/api/serializers.py modules/leave/api/urls.py modules/leave/domain/validation.py modules/leave/domain/states.py modules/leave/services/workflow.py modules/leave/services/decisions.py modules/leave/services/authz.py modules/leave/tests/test_api.py modules/leave/tests/test_domain.py
+
+# 2026-10-26 10:17:06.262122
++/add ELM_specs
+
+# 2026-10-26 10:19:54.459194
++/add ELM_specs_extracted.txt
+
+# 2026-10-26 10:20:01.939379
++Read the extracted ELM specifications and all source files currently in context.
++Compare the actual implementation against the requirements.
++Identify confirmed bugs, missing functionality, workflow and authorization issues,
++and test gaps. Give exact file paths, evidence, severity, and proposed regression tests.
++Do not edit files yet. Do not invent findings or claim unrun tests passed.
+
+# 2026-10-26 10:20:30.702797
++N
+
+# 2026-10-26 10:20:35.407166
++/clear
+
+# 2026-10-26 10:20:42.030075
++/add ELM_specs_extracted.txt
+
+# 2026-10-26 10:20:51.413849
++Read ELM_specs_extracted.txt only. Summarize the actual ELM requirements in a concise checklist covering functional requirements, business rules, workflow states, authorization, and traceability. Do not inspect or edit source files yet. Do not invent requirements. Keep the response concise to stay within the model's 32K context limit.
+
+# 2026-10-26 10:21:12.605120
++N
+
+# 2026-10-26 10:21:16.513644
++/clear
+
+# 2026-10-26 10:21:25.130073
++/drop ELM_specs_extracted.txt README.md modules/leave/api/serializers.py modules/leave/api/urls.py modules/leave/api/views.py modules/leave/domain/states.py modules/leave/domain/validation.py modules/leave/services/authz.py modules/leave/services/decisions.py modules/leave/services/workflow.py modules/leave/tests/test_api.py modules/leave/tests/test_domain.py pyproject.toml
+
+# 2026-10-26 10:21:33.410090
++/exit
+
+# 2026-10-26 10:22:45.724624
++/add ELM_specs_extracted.txt
+
+# 2026-10-26 10:22:51.212895
++Read only ELM_specs_extracted.txt. Summarize the actual ELM requirements in 10-15 concise bullets covering functionality, business rules, workflow, authorization, and traceability. Do not inspect or edit source files.
+
+# 2026-10-26 10:23:22.491703
++N
+
+# 2026-10-26 10:23:25.864523
++/exit
+
+# 2026-10-26 10:44:18.896869
++/add modules/leave/services/balances.py modules/leave/services/applications.py modules/leave/models/requests.py modules/leave/models/policy.py modules/leave/tests/test_sla.py modules/leave/tests/test_year_end.py
+
+# 2026-10-26 10:44:25.594259
++Use the ELM requirements below as the baseline for reviewing the existing Phase-1 implementation. Do not regenerate the project.
++
++Key requirements from the specification:
++- Leave categories: CL, RH, SCL, EL, COL, VL.
++- CL: 8 days/year; half-day CL supported; no carry-forward.
++- RH: 2 days/year, must match the currently effective published RH calendar.
++- SCL: up to 15 days/year; no carry-forward.
++- EL: 30 days/year for non-faculty; unused EL carries forward.
++- VL: 60 days/year for faculty, only during academic-calendar vacation periods; unused VL converts to EL at 2:1 at year-end, including fractional conversion.
++- COL: 20 days/year for eligible employees; unused COL carries forward.
++- EL/COL/VL count continuously across intervals, including weekends and closed holidays; this rule does not apply to CL/SCL/RH.
++- Applications validate eligibility, balances, calendars, overlaps, and half-day CL exceptions.
++- Substitute must be another employee, not the applicant, with no overlapping pending/approved leave; required consent must be accepted before approval routing continues.
++- CL/RH are finally decided by the Unit Head.
++- SCL/EL/COL/VL require Unit Head recommendation, then the configured higher-sanction path.
++- Pending withdrawal terminates all further processing. Approved-leave cancellation before start follows the original hierarchy and restores deducted balance if approved.
++- Extensions and resumptions are supported for EL/COL/VL.
++
++Inspect the source files now available in context. Compare implementation with these requirements and the extracted specifications if accessible. Report only evidence-based bugs or missing tests, with exact file paths, severity, and regression tests. If a requirement cannot be verified from the files in context, say so and request only the specific missing files. Do not edit code yet.
++
++Do not assume a bug merely because a requirement is not implemented in the few files shown; inspect relevant services/models/tests before concluding.
